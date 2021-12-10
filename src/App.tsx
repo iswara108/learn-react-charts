@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { AxisOptions, Chart } from "react-charts";
 
-function App() {
+type MyDatum = { date: Date; stars: number };
+
+export default function MyChart() {
+  const data = [
+    {
+      label: "React Charts",
+      data: [
+        {
+          date: new Date(),
+          stars: 23467238,
+        },
+      ],
+    },
+  ];
+
+  const primaryAxis = React.useMemo(
+    (): AxisOptions<MyDatum> => ({
+      getValue: (datum) => datum.date,
+    }),
+    []
+  );
+
+  const secondaryAxes = React.useMemo(
+    (): AxisOptions<MyDatum>[] => [
+      {
+        getValue: (datum) => datum.stars,
+      },
+    ],
+    []
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Chart
+      options={{
+        data,
+        primaryAxis,
+        secondaryAxes,
+      }}
+    />
   );
 }
-
-export default App;

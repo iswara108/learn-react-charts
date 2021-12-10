@@ -1,17 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import "./styles.css";
+import React from "react";
+import ReactDOM from "react-dom";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+//
+import Bar from "./Bar";
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const components = [["Bar", Bar]];
+
+export default function App() {
+  return (
+    <div>
+      {components.map(([label, Comp]) => {
+        return (
+          <div key={label + ""}>
+            <h1>{label}</h1>
+            <div>
+              <Comp />
+            </div>
+          </div>
+        );
+      })}
+      <div style={{ height: "50rem" }} />
+    </div>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
