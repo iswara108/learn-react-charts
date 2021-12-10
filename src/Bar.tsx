@@ -1,13 +1,9 @@
-import ResizableBox from "./ResizableBox";
-import useDemoConfig from "./useDemoConfig";
 import React from "react";
 import { AxisOptions, Chart } from "react-charts";
+import { getData } from "./getData";
 
 export default function Bar() {
-  const { data, randomizeData } = useDemoConfig({
-    series: 3,
-    dataType: "ordinal",
-  });
+  const data = React.useMemo(() => getData(), []);
 
   const primaryAxis = React.useMemo<
     AxisOptions<typeof data[number]["data"][number]>
@@ -31,10 +27,7 @@ export default function Bar() {
 
   return (
     <>
-      <button onClick={randomizeData}>Randomize Data</button>
-      <br />
-      <br />
-      <ResizableBox>
+      <div style={{ height: "40vh", width: "40vw" }}>
         <Chart
           options={{
             data,
@@ -42,7 +35,7 @@ export default function Bar() {
             secondaryAxes,
           }}
         />
-      </ResizableBox>
+      </div>
     </>
   );
 }
